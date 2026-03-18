@@ -1,714 +1,481 @@
 <!DOCTYPE html>
 <html lang="th">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PSRU Blockchain Digital Wallet</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600;700;800&family=IBM+Plex+Mono:wght@500&display=swap');
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: 'Sarabun', sans-serif;
-      background: #fff;
-      color: #1a1a2e;
-      width: 210mm;
-      min-height: 297mm;
-      margin: 0 auto;
-      padding: 12mm 14mm;
-    }
-
-    /* ===== HEADER ===== */
-    .header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 16px;
-    }
-
-    .header-left {
-      flex: 1;
-    }
-
-    .project-type {
-      font-size: 9px;
-      font-weight: 600;
-      color: #16a34a;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      margin-bottom: 4px;
-    }
-
-    h1 {
-      font-size: 20px;
-      font-weight: 800;
-      color: #1a1a2e;
-      line-height: 1.25;
-      margin-bottom: 3px;
-    }
-
-    h1 span {
-      color: #16a34a;
-    }
-
-    .subtitle {
-      font-size: 10.5px;
-      color: #6b7280;
-      font-weight: 400;
-    }
-
-    .role-box {
-      background: #f0fdf4;
-      border: 1.5px solid #bbf7d0;
-      border-radius: 10px;
-      padding: 10px 16px;
-      text-align: center;
-      min-width: 130px;
-    }
-
-    .role-box .role-label {
-      font-size: 8.5px;
-      color: #6b7280;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-bottom: 2px;
-    }
-
-    .role-box .role-name {
-      font-size: 13px;
-      font-weight: 700;
-      color: #16a34a;
-    }
-
-    /* ===== DIVIDER ===== */
-    .divider {
-      height: 1.5px;
-      background: #e5e7eb;
-      margin-bottom: 14px;
-    }
-
-    /* ===== PROGRESS SECTION ===== */
-    .progress-section {
-      background: #f9fafb;
-      border-radius: 12px;
-      border: 1.5px solid #e5e7eb;
-      padding: 14px 18px;
-      margin-bottom: 14px;
-      display: flex;
-      align-items: center;
-      gap: 24px;
-    }
-
-    .circle-wrap {
-      position: relative;
-      width: 80px;
-      height: 80px;
-      flex-shrink: 0;
-    }
-
-    .circle-wrap svg {
-      transform: rotate(-90deg);
-    }
-
-    .circle-wrap .pct {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 18px;
-      font-weight: 500;
-      color: #16a34a;
-    }
-
-    .progress-text {
-      flex: 1;
-    }
-
-    .progress-text h2 {
-      font-size: 13px;
-      font-weight: 700;
-      color: #1a1a2e;
-      margin-bottom: 8px;
-    }
-
-    .tag-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 5px;
-    }
-
-    .tag {
-      background: #dcfce7;
-      color: #15803d;
-      border-radius: 20px;
-      padding: 3px 10px;
-      font-size: 9.5px;
-      font-weight: 600;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
-
-    .tag::before {
-      content: '✓';
-      font-size: 9px;
-    }
-
-    /* ===== FLOW ===== */
-    .section-title {
-      font-size: 10px;
-      font-weight: 700;
-      color: #6b7280;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-bottom: 8px;
-    }
-
-    .flow {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0;
-      margin-bottom: 14px;
-      background: #f9fafb;
-      border-radius: 10px;
-      border: 1.5px solid #e5e7eb;
-      padding: 12px 10px;
-    }
-
-    .flow-node {
-      text-align: center;
-      padding: 6px 10px;
-      border-radius: 8px;
-      min-width: 65px;
-    }
-
-    .flow-node .node-icon {
-      font-size: 18px;
-      display: block;
-      margin-bottom: 2px;
-    }
-
-    .flow-node .node-name {
-      font-size: 9.5px;
-      font-weight: 700;
-      color: #374151;
-      display: block;
-    }
-
-    .flow-node .node-sub {
-      font-size: 8px;
-      color: #9ca3af;
-      display: block;
-    }
-
-    .flow-node.highlight {
-      background: #f0fdf4;
-      border: 1.5px solid #86efac;
-    }
-
-    .flow-node.highlight .node-name {
-      color: #16a34a;
-    }
-
-    .arrow {
-      color: #d1d5db;
-      font-size: 16px;
-      padding: 0 4px;
-      flex-shrink: 0;
-    }
-
-    /* ===== GRID ===== */
-    .grid-3 {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 10px;
-      margin-bottom: 10px;
-    }
-
-    .grid-2 {
-      display: grid;
-      grid-template-columns: 1.15fr 1fr;
-      gap: 10px;
-      margin-bottom: 10px;
-    }
-
-    /* ===== CARD ===== */
-    .card {
-      border-radius: 10px;
-      border: 1.5px solid #e5e7eb;
-      padding: 12px 13px;
-      background: #fff;
-    }
-
-    .card-head {
-      display: flex;
-      align-items: center;
-      gap: 7px;
-      margin-bottom: 8px;
-    }
-
-    .card-icon-wrap {
-      width: 28px;
-      height: 28px;
-      border-radius: 7px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 14px;
-      flex-shrink: 0;
-    }
-
-    .icon-green {
-      background: #dcfce7;
-    }
-
-    .icon-blue {
-      background: #dbeafe;
-    }
-
-    .icon-purple {
-      background: #ede9fe;
-    }
-
-    .icon-amber {
-      background: #fef3c7;
-    }
-
-    .card-head h3 {
-      font-size: 11px;
-      font-weight: 700;
-      color: #1a1a2e;
-    }
-
-    ul.list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    ul.list li {
-      font-size: 10px;
-      color: #4b5563;
-      display: flex;
-      align-items: flex-start;
-      gap: 6px;
-      line-height: 1.45;
-    }
-
-    ul.list li .dot {
-      width: 5px;
-      height: 5px;
-      border-radius: 50%;
-      flex-shrink: 0;
-      margin-top: 4px;
-    }
-
-    .dot-green {
-      background: #16a34a;
-    }
-
-    .dot-blue {
-      background: #2563eb;
-    }
-
-    .dot-purple {
-      background: #7c3aed;
-    }
-
-    .dot-amber {
-      background: #d97706;
-    }
-
-    /* PROP CHIPS */
-    .prop-chips {
-      display: flex;
-      gap: 5px;
-      flex-wrap: wrap;
-      margin-top: 8px;
-    }
-
-    .prop-chip {
-      background: #f0fdf4;
-      border: 1px solid #bbf7d0;
-      border-radius: 6px;
-      padding: 4px 8px;
-      font-size: 9px;
-      color: #15803d;
-      font-weight: 600;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
-
-    /* PROBLEM TABLE */
-    .prob-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 9.5px;
-    }
-
-    .prob-table thead tr {
-      background: #f3f4f6;
-    }
-
-    .prob-table th {
-      padding: 5px 8px;
-      font-size: 8.5px;
-      font-weight: 700;
-      color: #6b7280;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      text-align: left;
-      border-bottom: 1.5px solid #e5e7eb;
-    }
-
-    .prob-table td {
-      padding: 6px 8px;
-      color: #374151;
-      border-bottom: 1px solid #f3f4f6;
-      vertical-align: top;
-      line-height: 1.45;
-    }
-
-    .prob-table tr:last-child td {
-      border-bottom: none;
-    }
-
-    .prob-num {
-      background: #dbeafe;
-      color: #1d4ed8;
-      border-radius: 4px;
-      padding: 1px 5px;
-      font-size: 8.5px;
-      font-weight: 700;
-      font-family: 'IBM Plex Mono', monospace;
-      white-space: nowrap;
-    }
-
-    .fix-text {
-      color: #16a34a;
-      font-weight: 600;
-    }
-
-    /* STEPS */
-    .steps {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .step {
-      display: flex;
-      gap: 10px;
-      align-items: flex-start;
-    }
-
-    .step-num {
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      background: #1a1a2e;
-      color: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 9px;
-      font-weight: 700;
-      flex-shrink: 0;
-      margin-top: 1px;
-    }
-
-    .step-body .step-title {
-      font-size: 10.5px;
-      font-weight: 700;
-      color: #1a1a2e;
-      margin-bottom: 1px;
-    }
-
-    .step-body .step-desc {
-      font-size: 9px;
-      color: #6b7280;
-      line-height: 1.4;
-    }
-
-    .warn-chips {
-      margin-top: 10px;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    .warn-chip {
-      background: #fffbeb;
-      border: 1px solid #fde68a;
-      border-radius: 6px;
-      padding: 4px 9px;
-      font-size: 9px;
-      color: #92400e;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-    }
-
-    /* FOOTER */
-    .footer-bar {
-      background: #f9fafb;
-      border: 1.5px solid #e5e7eb;
-      border-radius: 10px;
-      padding: 8px 14px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-top: 4px;
-    }
-
-    .github {
-      display: flex;
-      align-items: center;
-      gap: 7px;
-      font-size: 9.5px;
-    }
-
-    .github .gh-label {
-      color: #6b7280;
-      font-weight: 600;
-    }
-
-    .github .gh-url {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 9px;
-      color: #2563eb;
-    }
-
-    .ref-text {
-      font-size: 8.5px;
-      color: #9ca3af;
-      text-align: right;
-    }
-
-    @media print {
-      body {
-        margin: 0;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PSRU Blockchain Digital Wallet — Backend Infographic</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+Thai:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        @page { size: A4 portrait; margin: 0; }
+
+        body {
+            font-family: 'Inter', 'Noto Sans Thai', sans-serif;
+            background: #1a1a1a;
+            display: flex; justify-content: center;
+            min-height: 100vh; padding: 20px;
+        }
+
+        .page {
+            width: 210mm; min-height: 297mm; max-height: 297mm;
+            background: linear-gradient(160deg, #1a1a1a 0%, #202020 40%, #181818 100%);
+            overflow: hidden; position: relative;
+            padding: 24px 26px 18px;
+            color: #e0e0f0;
+        }
+        .page::before {
+            content: ''; position: absolute;
+            top: -120px; right: -120px;
+            width: 450px; height: 450px;
+            background: radial-gradient(circle, rgba(16,185,129,0.07) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        /* HEADER */
+        .header {
+            display: flex; align-items: center; gap: 16px;
+            margin-bottom: 16px; position: relative; z-index: 1;
+        }
+        .logo {
+            width: 56px; height: 56px; border-radius: 15px;
+            background: linear-gradient(135deg, #10b981, #059669);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 28px; flex-shrink: 0;
+            box-shadow: 0 6px 24px rgba(16,185,129,0.3);
+        }
+        .header h1 {
+            font-size: 20px; font-weight: 800;
+            background: linear-gradient(135deg, #c7d2fe, #e0e7ff);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+        }
+        .header .sub {
+            font-size: 12px; color: #94a3b8; margin-top: 2px;
+        }
+        .tags { display: flex; gap: 6px; margin-top: 6px; }
+        .tags span {
+            font-size: 9px; padding: 3px 10px; border-radius: 20px;
+            font-weight: 600;
+        }
+        .t1 { background: rgba(16,185,129,0.12); border: 1px solid rgba(16,185,129,0.3); color: #6ee7b7; }
+        .t2 { background: rgba(99,102,241,0.12); border: 1px solid rgba(99,102,241,0.3); color: #a5b4fc; }
+        .t3 { background: rgba(251,191,36,0.12); border: 1px solid rgba(251,191,36,0.3); color: #fcd34d; }
+
+        /* Progress */
+        .prog {
+            margin-left: auto; text-align: center;
+        }
+        .prog-ring { position: relative; width: 56px; height: 56px; }
+        .prog-ring svg { transform: rotate(-90deg); }
+        .prog-ring .bg { stroke: rgba(255,255,255,0.06); }
+        .prog-ring .fg { stroke: #10b981; stroke-linecap: round; }
+        .prog-val {
+            position: absolute; top: 50%; left: 50%;
+            transform: translate(-50%,-50%);
+            font-size: 16px; font-weight: 800; color: #6ee7b7;
+        }
+        .prog-lbl { font-size: 8px; color: #64748b; margin-top: 3px; font-weight: 600; }
+
+        .divider {
+            height: 1px; margin-bottom: 14px;
+            background: linear-gradient(90deg, transparent, rgba(99,102,241,0.3), rgba(16,185,129,0.3), transparent);
+        }
+
+        /* GRID */
+        .grid {
+            display: grid; grid-template-columns: 1fr 1fr;
+            gap: 10px; position: relative; z-index: 1;
+        }
+        .full { grid-column: 1 / -1; }
+
+        /* CARD */
+        .card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 12px; padding: 12px 14px;
+            position: relative; overflow: hidden;
+        }
+        .card::before {
+            content: ''; position: absolute;
+            top: 0; left: 0; right: 0; height: 2.5px;
+            border-radius: 12px 12px 0 0;
+        }
+        .card.c-green::before { background: linear-gradient(90deg, #10b981, #34d399); }
+        .card.c-purple::before { background: linear-gradient(90deg, #6366f1, #8b5cf6); }
+        .card.c-amber::before { background: linear-gradient(90deg, #f59e0b, #fbbf24); }
+        .card.c-blue::before { background: linear-gradient(90deg, #3b82f6, #60a5fa); }
+        .card.c-rose::before { background: linear-gradient(90deg, #f43f5e, #fb7185); }
+        .card.c-cyan::before { background: linear-gradient(90deg, #06b6d4, #22d3ee); }
+        .card.c-orange::before { background: linear-gradient(90deg, #f97316, #fb923c); }
+
+        .ch {
+            display: flex; align-items: center; gap: 8px;
+            margin-bottom: 10px;
+        }
+        .ci {
+            width: 28px; height: 28px; border-radius: 8px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 14px; flex-shrink: 0;
+        }
+        .ci-green { background: rgba(16,185,129,0.15); }
+        .ci-purple { background: rgba(99,102,241,0.15); }
+        .ci-amber { background: rgba(245,158,11,0.15); }
+        .ci-blue { background: rgba(59,130,246,0.15); }
+        .ci-rose { background: rgba(244,63,94,0.15); }
+        .ci-cyan { background: rgba(6,182,212,0.15); }
+        .ci-orange { background: rgba(249,115,22,0.15); }
+        .ct {
+            font-size: 12px; font-weight: 700; color: #e2e8f0;
+            letter-spacing: 0.3px;
+        }
+        .full { grid-column: 1 / -1; }
+
+        /* ROLE */
+        .role-row {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+        }
+        .role-item { display: flex; gap: 8px; align-items: flex-start; }
+        .role-item .ri { font-size: 16px; flex-shrink: 0; }
+        .role-item .rl { font-size: 8px; color: #64748b; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+        .role-item .rv { font-size: 10px; color: #e2e8f0; line-height: 1.4; }
+
+        /* ARCH FLOW */
+        .arch {
+            display: flex; align-items: center; justify-content: center;
+            gap: 0; padding: 6px 0;
+        }
+        .an { display: flex; flex-direction: column; align-items: center; gap: 3px; }
+        .ab {
+            padding: 8px 14px; border-radius: 9px;
+            font-size: 10px; font-weight: 700;
+            text-align: center; border: 1.5px solid; line-height: 1.3;
+        }
+        .ab-c { background: rgba(99,102,241,0.1); border-color: rgba(99,102,241,0.3); color: #a5b4fc; }
+        .ab-a { background: rgba(251,191,36,0.1); border-color: rgba(251,191,36,0.3); color: #fcd34d; }
+        .ab-m { background: rgba(6,182,212,0.1); border-color: rgba(6,182,212,0.3); color: #67e8f9; }
+        .ab-d { background: rgba(16,185,129,0.1); border-color: rgba(16,185,129,0.3); color: #6ee7b7; }
+        .ab-r { background: rgba(249,115,22,0.1); border-color: rgba(249,115,22,0.3); color: #fdba74; }
+        .ab-b { background: rgba(139,92,246,0.1); border-color: rgba(139,92,246,0.3); color: #c4b5fd; }
+        .as { font-size: 7.5px; color: #64748b; }
+        .aa { color: #475569; font-size: 18px; margin: 0 5px; }
+        .arch-note {
+            text-align: center; margin-top: 6px;
+            font-size: 8.5px; color: #94a3b8; font-style: italic;
+            padding: 4px 10px;
+            background: rgba(249,115,22,0.05);
+            border: 1px solid rgba(249,115,22,0.1);
+            border-radius: 6px;
+        }
+
+        /* API GROUPS */
+        .api-groups { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+        .api-group {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 8px; padding: 8px 10px;
+        }
+        .api-group-title {
+            font-size: 9px; font-weight: 700; margin-bottom: 6px;
+            padding-bottom: 4px; border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+        .ag-auth { color: #6ee7b7; }
+        .ag-wallet { color: #a5b4fc; }
+        .ag-waste { color: #fcd34d; }
+        .api-item {
+            display: flex; align-items: center; gap: 5px;
+            margin-bottom: 3px;
+        }
+        .api-m {
+            font-size: 6.5px; font-weight: 700; padding: 1.5px 5px;
+            border-radius: 3px; font-family: 'JetBrains Mono', monospace;
+            flex-shrink: 0;
+        }
+        .api-m.p { background: rgba(16,185,129,0.15); color: #6ee7b7; }
+        .api-m.g { background: rgba(59,130,246,0.15); color: #93c5fd; }
+        .api-path {
+            font-size: 8px; color: #cbd5e1;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* DB */
+        .db-row { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+        .db-item {
+            background: rgba(16,185,129,0.04);
+            border: 1px solid rgba(16,185,129,0.12);
+            border-radius: 7px; padding: 7px 9px;
+        }
+        .db-name {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px; font-weight: 700; color: #6ee7b7;
+            margin-bottom: 3px;
+        }
+        .db-desc { font-size: 8px; color: #94a3b8; line-height: 1.5; }
+
+        /* TECH REF */
+        .ref-list { display: flex; flex-direction: column; gap: 6px; }
+        .ref-item {
+            display: flex; gap: 8px; align-items: flex-start;
+            padding: 7px 10px;
+            background: rgba(59,130,246,0.04);
+            border: 1px solid rgba(59,130,246,0.1);
+            border-radius: 7px;
+        }
+        .ref-num {
+            width: 20px; height: 20px; border-radius: 5px;
+            background: rgba(59,130,246,0.12);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 11px; font-weight: 800; color: #60a5fa;
+            flex-shrink: 0;
+        }
+        .ref-title { font-size: 10px; font-weight: 700; color: #e2e8f0; }
+        .ref-cite {
+            font-size: 7.5px; color: #64748b; font-style: italic;
+            margin-top: 2px; line-height: 1.4;
+            border-left: 2px solid rgba(59,130,246,0.2);
+            padding-left: 6px;
+        }
+
+        /* PROBLEMS & ROADMAP */
+        .issue-box {
+            padding: 8px 10px; margin-bottom: 8px;
+            background: rgba(251,191,36,0.05);
+            border: 1px solid rgba(251,191,36,0.15);
+            border-radius: 7px;
+        }
+        .issue-title { font-size: 10px; font-weight: 700; color: #fcd34d; margin-bottom: 3px; }
+        .issue-desc { font-size: 9px; color: #94a3b8; line-height: 1.4; }
+        .issue-fix { font-size: 9px; color: #6ee7b7; margin-top: 3px; }
+        .issue-fix::before { content: '✅ '; }
+
+        .road-list { display: flex; flex-direction: column; gap: 5px; }
+        .road-item {
+            display: flex; align-items: center; gap: 8px;
+            padding: 6px 10px;
+            background: rgba(139,92,246,0.04);
+            border: 1px solid rgba(139,92,246,0.1);
+            border-radius: 7px;
+        }
+        .road-item span:first-child { font-size: 14px; }
+        .road-item span:last-child { font-size: 10px; color: #e2e8f0; }
+
+        /* FOOTER */
+        .footer {
+            display: flex; justify-content: center; gap: 20px;
+            margin-top: 12px; padding-top: 10px;
+            border-top: 1px solid rgba(255,255,255,0.04);
+        }
+        .fi { display: flex; align-items: center; gap: 5px; }
+        .fi-icon {
+            width: 22px; height: 22px; border-radius: 5px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 11px;
+        }
+        .fi-label { font-size: 8px; color: #64748b; font-weight: 500; }
+
+        @media print {
+            body { background: white; padding: 0; }
+            .page { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+        }
+    </style>
 </head>
-
 <body>
+<div class="page">
 
-  <!-- HEADER -->
-  <div class="header">
-    <div class="header-left">
-      <div class="project-type">● Backend Development Report</div>
-      <h1>PSRU Blockchain Digital Wallet<br>for <span>Carbon Credit Point</span></h1>
-      <div class="subtitle">รายงานความคืบหน้าการพัฒนาระบบ Backend · ระยะเวลา 2 เดือน</div>
-    </div>
-    <div class="role-box">
-      <div class="role-label">บทบาท</div>
-      <div class="role-name">Backend Developer</div>
-    </div>
-  </div>
-
-  <div class="divider"></div>
-
-  <!-- PROGRESS -->
-  <div class="progress-section">
-    <div class="circle-wrap">
-      <svg width="80" height="80" viewBox="0 0 80 80">
-        <circle cx="40" cy="40" r="34" fill="none" stroke="#e5e7eb" stroke-width="7" />
-        <circle cx="40" cy="40" r="34" fill="none" stroke="#16a34a" stroke-width="7" stroke-dasharray="213.6"
-          stroke-dashoffset="42.7" stroke-linecap="round" />
-      </svg>
-      <div class="pct">80%</div>
-    </div>
-    <div class="progress-text">
-      <h2>ความคืบหน้าส่วน Backend — อยู่ที่ 80%</h2>
-      <div class="tag-row">
-        <div class="tag">พัฒนา API แล้ว</div>
-        <div class="tag">เชื่อมต่อ Blockchain</div>
-        <div class="tag">ระบบ Transaction</div>
-        <div class="tag">ทดสอบ Local Chain</div>
-        <div class="tag">บันทึก Database</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- FLOW -->
-  <div class="section-title">การทำงานของระบบ</div>
-  <div class="flow">
-    <div class="flow-node">
-      <span class="node-icon">👤</span>
-      <span class="node-name">Frontend</span>
-      <span class="node-sub">ผู้ใช้งาน</span>
-    </div>
-    <div class="arrow">→</div>
-    <div class="flow-node highlight">
-      <span class="node-icon">⚙️</span>
-      <span class="node-name">Backend API</span>
-      <span class="node-sub">ตัวกลาง / Web3</span>
-    </div>
-    <div class="arrow">→</div>
-    <div class="flow-node">
-      <span class="node-icon">📜</span>
-      <span class="node-name">Smart Contract</span>
-      <span class="node-sub">ควบคุมสิทธิ์</span>
-    </div>
-    <div class="arrow">→</div>
-    <div class="flow-node">
-      <span class="node-icon">⛓️</span>
-      <span class="node-name">Blockchain</span>
-      <span class="node-sub">บันทึกข้อมูล</span>
-    </div>
-    <div class="arrow">→</div>
-    <div class="flow-node">
-      <span class="node-icon">🗄️</span>
-      <span class="node-name">Database</span>
-      <span class="node-sub">ประวัติ Tx</span>
-    </div>
-  </div>
-
-  <!-- ROW 1 -->
-  <div class="grid-3">
-
-    <div class="card">
-      <div class="card-head">
-        <div class="card-icon-wrap icon-green">✅</div>
-        <h3>งานที่สำเร็จแล้ว</h3>
-      </div>
-      <ul class="list">
-        <li><span class="dot dot-green"></span>พัฒนา API ระบบ Wallet</li>
-        <li><span class="dot dot-green"></span>เชื่อมต่อ Backend กับ Blockchain</li>
-        <li><span class="dot dot-green"></span>ระบบจัดการ Carbon Credit Tx</li>
-        <li><span class="dot dot-green"></span>ทดสอบผ่าน Anvil / Local Chain</li>
-        <li><span class="dot dot-green"></span>บันทึก Transaction ลงฐานข้อมูล</li>
-      </ul>
-    </div>
-
-    <div class="card">
-      <div class="card-head">
-        <div class="card-icon-wrap icon-blue">⛓️</div>
-        <h3>Blockchain Technology</h3>
-      </div>
-      <ul class="list">
-        <li><span class="dot dot-blue"></span>บันทึกธุรกรรม Carbon Credit</li>
-        <li><span class="dot dot-blue"></span>ตรวจสอบได้ทุก Transaction</li>
-      </ul>
-      <div class="prop-chips">
-        <div class="prop-chip">🔍 Transparency</div>
-        <div class="prop-chip">🔒 Immutability</div>
-        <div class="prop-chip">🌐 Decentralization</div>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-head">
-        <div class="card-icon-wrap icon-purple">📜</div>
-        <h3>Smart Contract</h3>
-      </div>
-      <ul class="list">
-        <li><span class="dot dot-purple"></span>Mint Carbon Credit ใหม่</li>
-        <li><span class="dot dot-purple"></span>ตรวจสอบสิทธิ์ผู้ใช้งาน</li>
-        <li><span class="dot dot-purple"></span>ดำเนินการอัตโนมัติตามเงื่อนไข</li>
-      </ul>
-    </div>
-
-  </div>
-
-  <!-- ROW 2 -->
-  <div class="grid-2">
-
-    <div class="card">
-      <div class="card-head">
-        <div class="card-icon-wrap icon-blue">🔧</div>
-        <h3>ปัญหาที่พบและแนวทางแก้ไข</h3>
-      </div>
-      <table class="prob-table">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>ปัญหา</th>
-            <th>วิธีแก้ไข</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><span class="prob-num">01</span></td>
-            <td>RPC Endpoint ตั้งค่าผิด ส่ง Tx ไม่ได้</td>
-            <td class="fix-text">ตรวจสอบ + ใช้ Anvil Local</td>
-          </tr>
-          <tr>
-            <td><span class="prob-num">02</span></td>
-            <td>Transaction ไม่ถูกบันทึกใน Blockchain</td>
-            <td class="fix-text">ตรวจ Gas Fee + เพิ่ม Logging</td>
-          </tr>
-          <tr>
-            <td><span class="prob-num">03</span></td>
-            <td>รูปแบบข้อมูล Frontend ↔ Backend ไม่ตรง</td>
-            <td class="fix-text">กำหนด API Structure + JSON Schema</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="card">
-      <div class="card-head">
-        <div class="card-icon-wrap icon-purple">🚀</div>
-        <h3>แผนงานระยะถัดไป</h3>
-      </div>
-      <div class="steps">
-        <div class="step">
-          <div class="step-num">1</div>
-          <div class="step-body">
-            <div class="step-title">พัฒนา Backend ให้สมบูรณ์</div>
-            <div class="step-desc">เพิ่ม API Carbon Credit + ปรับปรุง Transaction</div>
-          </div>
+    <!-- HEADER -->
+    <div class="header">
+        <div class="logo">🌿</div>
+        <div>
+            <h1>PSRU Blockchain Digital Wallet</h1>
+            <div class="sub">for Carbon Credit Point — Backend Development Report</div>
+            <div class="tags">
+                <span class="t1">MongoDB Atlas</span>
+                <span class="t2">Ethereum Sepolia</span>
+                <span class="t3">JWT Authentication</span>
+            </div>
         </div>
-        <div class="step">
-          <div class="step-num">2</div>
-          <div class="step-body">
-            <div class="step-title">Depoly บน server จริง</div>
-            <div class="step-desc">ทดสอบdepoly เเละเเก้ปัญหา</div>
-          </div>
+        <div class="prog">
+            <div class="prog-ring">
+                <svg width="56" height="56">
+                    <circle class="bg" cx="28" cy="28" r="23" fill="none" stroke-width="5"/>
+                    <circle class="fg" cx="28" cy="28" r="23" fill="none" stroke-width="5"
+                            stroke-dasharray="144.51" stroke-dashoffset="28.9"/>
+                </svg>
+                <span class="prog-val">80%</span>
+            </div>
+            <div class="prog-lbl">PROGRESS</div>
         </div>
-        <div class="step">
-          <div class="step-num">3</div>
-          <div class="step-body">
-            <div class="step-title">Deploy บน Testnet</div>
-            <div class="step-desc">Deploy Smart Contract + Backend Server</div>
-          </div>
+    </div>
+    <div class="divider"></div>
+
+    <div class="grid">
+
+        <!-- 1. ROLE & SCOPE -->
+        <div class="card c-green full">
+            <div class="ch">
+                <div class="ci ci-green">👤</div>
+                <span class="ct">บทบาทและขอบเขตงาน</span>
+            </div>
+            <div class="role-row">
+                <div class="role-item">
+                    <span class="ri">🎯</span>
+                    <div><div class="rl">หน้าที่หลัก</div><div class="rv">Backend Developer — พัฒนา API, Database, Blockchain</div></div>
+                </div>
+                <div class="role-item">
+                    <span class="ri">🔗</span>
+                    <div><div class="rl">บทบาทในกลุ่ม</div><div class="rv">รวมโค้ดของเพื่อน แก้ปัญหาระบบ ส่งต่อ API ให้ Frontend</div></div>
+                </div>
+                <div class="role-item">
+                    <span class="ri">📊</span>
+                    <div><div class="rl">ผลการดำเนินงาน</div><div class="rv">สำเร็จ 80% — เหลือระบบคำนวณคะแนน Carbon Credit</div></div>
+                </div>
+                <div class="role-item">
+                    <span class="ri">⚙️</span>
+                    <div><div class="rl">วิธีเชื่อมต่อ Blockchain</div><div class="rv">ไม่ได้รัน Node เอง ใช้ Infura RPC API เชื่อมต่อ Testnet</div></div>
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="warn-chips">
-        <div class="warn-chip">⚠ ปัญหาการเชื่อมต่อ Blockchain Network</div>
-        <div class="warn-chip">⚠ ค่า Gas Fee ของ Blockchain</div>
-        <div class="warn-chip">⚠ ความเข้ากันได้ Backend ↔ Frontend</div>
-      </div>
+
+        <!-- 2. ARCHITECTURE -->
+        <div class="card c-purple full">
+            <div class="ch">
+                <div class="ci ci-purple">🏗️</div>
+                <span class="ct">System Architecture</span>
+            </div>
+            <div class="arch">
+                <div class="an"><div class="ab ab-c">Client</div><span class="as">React</span></div>
+                <span class="aa">→</span>
+                <div class="an"><div class="ab ab-a">API Routes</div><span class="as">Next.js</span></div>
+                <span class="aa">→</span>
+                <div class="an"><div class="ab ab-m">Middleware</div><span class="as">JWT + RBAC</span></div>
+                <span class="aa">→</span>
+                <div class="an"><div class="ab ab-d">MongoDB</div><span class="as">Database</span></div>
+                <span class="aa">⇄</span>
+                <div class="an"><div class="ab ab-r">Infura RPC</div><span class="as">Node Provider</span></div>
+                <span class="aa">⇄</span>
+                <div class="an"><div class="ab ab-b">Sepolia</div><span class="as">Blockchain</span></div>
+            </div>
+            <div class="arch-note">Backend ประมวลผลธุรกรรม → ส่ง TX ผ่าน Infura RPC API → ตรวจสอบผลบน Blockchain</div>
+        </div>
+
+        <!-- 3. API ENDPOINTS -->
+        <div class="card c-amber full">
+            <div class="ch">
+                <div class="ci ci-amber">⚡</div>
+                <span class="ct">API Endpoints — 12 เส้นทาง</span>
+            </div>
+            <div class="api-groups">
+                <div class="api-group">
+                    <div class="api-group-title ag-auth">🔐 Authentication & Users</div>
+                    <div class="api-item"><span class="api-m p">POST</span><span class="api-path">/auth/register</span></div>
+                    <div class="api-item"><span class="api-m p">POST</span><span class="api-path">/auth/login</span></div>
+                    <div class="api-item"><span class="api-m g">GET</span><span class="api-path">/users/list</span></div>
+                    <div class="api-item"><span class="api-m g">GET</span><span class="api-path">/transactions/history</span></div>
+                </div>
+                <div class="api-group">
+                    <div class="api-group-title ag-wallet">💼 Wallet Management</div>
+                    <div class="api-item"><span class="api-m g">GET</span><span class="api-path">/wallet/balance</span></div>
+                    <div class="api-item"><span class="api-m g">GET</span><span class="api-path">/wallet/info</span></div>
+                    <div class="api-item"><span class="api-m p">POST</span><span class="api-path">/wallet/transfer</span></div>
+                    <div class="api-item"><span class="api-m p">POST</span><span class="api-path">/wallet/export</span></div>
+                </div>
+                <div class="api-group">
+                    <div class="api-group-title ag-waste">♻️ Waste & Officer</div>
+                    <div class="api-item"><span class="api-m p">POST</span><span class="api-path">/waste/submit</span></div>
+                    <div class="api-item"><span class="api-m g">GET</span><span class="api-path">/waste/pending</span></div>
+                    <div class="api-item"><span class="api-m p">POST</span><span class="api-path">/waste/approve</span></div>
+                    <div class="api-item"><span class="api-m p">POST</span><span class="api-path">/officer/add-coins</span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. DATABASE -->
+        <div class="card c-green">
+            <div class="ch">
+                <div class="ci ci-green">🗄️</div>
+                <span class="ct">Database — 4 Collections</span>
+            </div>
+            <div class="db-row">
+                <div class="db-item">
+                    <div class="db-name">📋 users</div>
+                    <div class="db-desc">ข้อมูลผู้ใช้, email, role (user/officer), wallet address</div>
+                </div>
+                <div class="db-item">
+                    <div class="db-name">📋 wallets</div>
+                    <div class="db-desc">Private key ที่เข้ารหัส AES-256, wallet address</div>
+                </div>
+                <div class="db-item">
+                    <div class="db-name">📋 transactions</div>
+                    <div class="db-desc">ธุรกรรม mint/transfer/exchange + tx hash</div>
+                </div>
+                <div class="db-item">
+                    <div class="db-name">📋 waste_submissions</div>
+                    <div class="db-desc">ข้อมูลขยะ, น้ำหนัก, สถานะ, จำนวนเหรียญ</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 5. PROBLEM & ROADMAP -->
+        <div class="card c-orange">
+            <div class="ch">
+                <div class="ci ci-orange">🔧</div>
+                <span class="ct">ปัญหาและแผนงาน</span>
+            </div>
+            <div class="issue-box">
+                <div class="issue-title">⚠️ RPC Endpoint ตั้งค่าผิด</div>
+                <div class="issue-desc">ส่ง Transaction ไม่ได้ เนื่องจาก RPC URL ไม่ถูกต้อง</div>
+                <div class="issue-fix">แก้ไข SEPOLIA_RPC_URL ใน .env.local ให้ตรง Infura Project ID</div>
+            </div>
+            <div class="road-list">
+                <div class="road-item"><span>🔜</span><span>พัฒนาระบบคำนวณคะแนน Carbon Credit</span></div>
+                <div class="road-item"><span>🚀</span><span>Deploy บน Server จริง (Production)</span></div>
+                <div class="road-item"><span>⚡</span><span>พัฒนา Backend ให้สมบูรณ์ 100%</span></div>
+            </div>
+        </div>
+
+        <!-- 6. TECHNOLOGIES & REFERENCES -->
+        <div class="card c-blue full">
+            <div class="ch">
+                <div class="ci ci-blue">📚</div>
+                <span class="ct">เทคโนโลยีและอ้างอิง</span>
+            </div>
+            <div class="ref-list">
+                <div class="ref-item">
+                    <div class="ref-num">1</div>
+                    <div>
+                        <div class="ref-title">Blockchain Technology — จัดเก็บธุรกรรม Carbon Credit แบบกระจายศูนย์</div>
+                        <div class="ref-cite">Nakamoto, S. (2008) – Bitcoin: A Peer-to-Peer Electronic Cash System<br>IBM (2023) – What is Blockchain?</div>
+                    </div>
+                </div>
+                <div class="ref-item">
+                    <div class="ref-num">2</div>
+                    <div>
+                        <div class="ref-title">Smart Contract (Solidity) — ควบคุมธุรกรรมอัตโนมัติ ERC-20 Token (WST)</div>
+                        <div class="ref-cite">Buterin, V. (2014) – Ethereum Whitepaper<br>Wood, G. (2014) – Ethereum: A Secure Decentralised Generalised Transaction Ledger</div>
+                    </div>
+                </div>
+                <div class="ref-item">
+                    <div class="ref-num">3</div>
+                    <div>
+                        <div class="ref-title">Hardhat / Testnet (Sepolia) — ทดสอบระบบก่อน Deploy จริง ลดต้นทุนและความเสี่ยง</div>
+                        <div class="ref-cite">ในอนาคตจะเปลี่ยนไป Deploy บน Mainnet / Server จริง</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 
-  </div>
-
-  <!-- FOOTER -->
-  <div class="footer-bar">
-    <div class="github">
-      <span style="font-size:16px;">🐙</span>
-      <span class="gh-label">Source Code:</span>
-      <span class="gh-url">github.com/Achernar046/project.git</span>
+    <!-- FOOTER -->
+    <div class="footer">
+        <div class="fi"><div class="fi-icon" style="background:rgba(255,255,255,0.06)">▲</div><span class="fi-label">Next.js</span></div>
+        <div class="fi"><div class="fi-icon" style="background:rgba(59,130,246,0.1)">TS</div><span class="fi-label">TypeScript</span></div>
+        <div class="fi"><div class="fi-icon" style="background:rgba(16,185,129,0.1)">🍃</div><span class="fi-label">MongoDB</span></div>
+        <div class="fi"><div class="fi-icon" style="background:rgba(99,102,241,0.1)">⟠</div><span class="fi-label">Ethereum</span></div>
+        <div class="fi"><div class="fi-icon" style="background:rgba(251,191,36,0.1)">🔑</div><span class="fi-label">JWT</span></div>
+        <div class="fi"><div class="fi-icon" style="background:rgba(249,115,22,0.1)">🌐</div><span class="fi-label">Infura</span></div>
+        <div class="fi"><div class="fi-icon" style="background:rgba(244,63,94,0.1)">⛑️</div><span class="fi-label">Hardhat</span></div>
     </div>
-    <div class="ref-text">
-      อ้างอิง: Techaroha (2024) · Green Carbon AI (2024)
-    </div>
-  </div>
-
+</div>
 </body>
-
 </html>
+
